@@ -1,0 +1,31 @@
+@utility tag {
+  @apply inline-flex items-center px-4 py-1 rounded-full text-sm font-medium border;
+  border-color: rgba(255,255,255,.25);
+  color:#f5f5f5;
+}
+@utility tag-amber { border-color: var(--color-brand-accent); color: var(--color-brand-accent); }
+
+@utility skill-tag {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition;
+  background: linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.65));
+  border: 1px solid rgb(var(--color-border-soft)/.12);
+  color: #e5e7eb;
+  box-shadow: inset 0 1px 4px rgba(255,255,255,.05);
+}
+@utility skill-tag-hover {
+  color: var(--color-brand-primary);
+  box-shadow: 0 0 12px rgba(59,130,246,.35);
+  transform: translateY(-2px);
+}
+.skill-icon { width:16px; height:16px; opacity:.85; }
+
+@utility hero-chip {
+  @apply inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border;
+  border-color: rgb(var(--color-border-soft)/.14);
+  color:#e5e7eb; background-color: rgba(255,255,255,.04);
+  box-shadow: 0 12px 30px -12px rgba(59,130,246,.18);
+}
+@utility hero-chiprow { @apply mt-6 flex flex-wrap gap-3; }
+
+
+

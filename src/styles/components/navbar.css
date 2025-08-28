@@ -1,0 +1,27 @@
+@utility navbar {
+  @apply sticky top-0 z-50 backdrop-blur border-b;
+  background: rgba(10,11,13,.75);
+  border-color: rgb(var(--color-border-soft) / .08);
+}
+
+/* link da brand */
+.brand-link {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;                    /* estado normal */
+  transition: color .25s ease, background .25s ease;
+}
+
+/* hover: gradiente no texto (fora de @utility, usando CSS normal) */
+.brand-link:hover {
+  background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent; /* garante em Safari */
+}
+
+/* tema claro: cor base escura para o estado normal */
+:root[data-theme='light'] .brand-link {
+  color: #0b1220;
+}

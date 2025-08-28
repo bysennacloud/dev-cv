@@ -1,0 +1,161 @@
+@utility hero-panel {
+  @apply relative rounded-[1.5rem] border border-white/10 backdrop-blur-xl overflow-hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.5),
+    rgba(17, 24, 39, 0.35)
+  );
+  box-shadow: 0 30px 100px -30px rgba(59, 130, 246, 0.35);
+}
+@utility hero-panel-hover {
+  box-shadow: 0 40px 140px -30px rgba(59, 130, 246, 0.55);
+}
+
+@utility featured-panel {
+  @apply relative rounded-2xl p-8 md:p-10 border backdrop-blur overflow-hidden;
+  border-color: rgb(var(--color-border-soft) / 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.65),
+    rgba(17, 24, 39, 0.45)
+  );
+  box-shadow: 0 18px 80px -28px rgba(0, 0, 0, 0.6);
+}
+@utility featured-panel-glow {
+  @apply relative;
+}
+.featured-panel-glow::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle at top right,
+    rgba(59, 130, 246, 0.24),
+    transparent 70%
+  );
+  filter: blur(60px);
+  z-index: -1;
+}
+
+
+/*        */
+@utility new-effects-green {
+@apply p-6 md:p-7;
+@apply relative rounded-2xl p-8 md:p-10 border backdrop-blur overflow-hidden;
+border-color: rgb(var(--color-border-soft) / 0.12);
+background: linear-gradient(
+180deg,
+rgba(17, 24, 39, 0.65),
+rgba(17, 24, 39, 0.45)
+);
+box-shadow: 0 18px 80px -28px rgba(0, 0, 0, 0.6);
+}
+
+
+.new-effects-green {
+position: relative;
+border-radius: 1rem;
+overflow: hidden; /* clipa o halo ao retângulo arredondado */
+transition: box-shadow 0.25s ease;
+}
+
+
+.new-effects-green::before {
+content: "";
+position: absolute;
+inset: 0;
+border-radius: inherit;
+padding: 2px; /* espessura do anel */
+pointer-events: none;
+z-index: 1;
+opacity: 0;
+transition: opacity 0.25s ease;
+
+
+/* highlight curto que percorre a borda */
+background: conic-gradient(
+from var(--ring-angle),
+/* trecho escuro/transparente */ transparent 0turn 0.86turn,
+/* “faixa de luz” agora BRANCA */
+color-mix(in oklab, white 92%, transparent) 0.9turn 0.96turn,
+color-mix(in oklab, white 80%, transparent) 0.96turn 1turn
+)
+border-box;
+
+
+/* máscara: transforma em ANEL (só a borda) — cross-browser */
+-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+-webkit-mask-composite: xor;
+mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+mask-composite: exclude;
+
+
+/* leve suavização do brilho */
+filter: blur(0.4px);
+}
+
+
+/*        */
+
+/* hero-plate */
+/* Hero plate continua relativo */
+@utility hero-plate {
+  @apply relative rounded-2xl border backdrop-blur-xl;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.55),
+    rgba(9, 13, 20, 0.45)
+  );
+  border-color: rgb(var(--color-border-soft) / 0.12);
+  box-shadow: 0 28px 90px -26px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+/* Badge de disponibilidade — ancorado no canto */
+.avail-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.44rem 0.75rem;
+  border-radius: 9999px;
+
+  border: 1px solid rgb(var(--color-border-soft) / 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.45),
+    rgba(17, 24, 39, 0.32)
+  );
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: oklch(92% 0 0 / 0.95);
+}
+
+/* Anel do ícone (menor e mais sutil) */
+.avail-dot-wrap {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.08),
+    0 0 8px rgba(16, 185, 129, 0.25);
+}
+
+/* Dot pulsante — proporção refinada */
+.avail-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #22c55e; /* emerald-500 */
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  animation: kpi-pulse 1.8s ease infinite;
+}

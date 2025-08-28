@@ -1,0 +1,29 @@
+/* A11Y / Preferências do usuário *//*
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+/* Focus ring padrão (sem usar : em @utility) */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.input-dark:focus-visible {
+  box-shadow:
+    0 0 0 var(--ring-offset) rgb(0 0 0 / 0),
+    0 0 0 calc(var(--ring-offset) + 3px) rgb(var(--ring-color) / var(--ring-opacity));
+  outline: none;
+}
+
+/* Skip link helper (use no Nav) */
+.sr-only {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+.focus\:not-sr-only:focus { position:static; width:auto; height:auto; margin:0; overflow:visible; clip:auto; white-space:normal; }
+/* Permitido animar mesmo com reduce, só para elementos marcados */
+@media (prefers-reduced-motion: reduce) {
+  .allow-motion,
+  .allow-motion * {
+    animation-duration: 1.8s !important;
+    animation-iteration-count: infinite !important;
+    transition-duration: 150ms !important;
+  }
+}

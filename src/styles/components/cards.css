@@ -1,0 +1,19 @@
+@utility card {
+  background-color: rgb(var(--color-brand-card) / .94);
+  @apply rounded-2xl border backdrop-blur-md p-6 shadow-xl;
+  border-color: rgb(var(--color-border-soft) / .14);
+  box-shadow: var(--shadow-soft);
+}
+@utility card-hover {
+  background-color: rgb(var(--color-brand-card) / .98);
+  box-shadow: 0 0 26px color-mix(in oklab, var(--color-brand-primary) 30%, transparent), var(--shadow-soft);
+}
+@utility card-title { color: var(--color-brand-primary); @apply font-semibold text-lg leading-snug tracking-tight; }
+@utility card-desc  { @apply text-sm leading-relaxed; color: oklch(96% 0 0 / .92); }
+
+/* util shine base (sem pseudo) */
+@utility card-shine {
+  background-image:
+    radial-gradient(400px 120px at 85% 15%, rgba(59,130,246,.10), transparent 60%),
+    linear-gradient(180deg, rgba(17,24,39,.55), rgba(17,24,39,.35));
+}

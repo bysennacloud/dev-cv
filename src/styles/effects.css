@@ -1,0 +1,175 @@
+/* GLOW / SHINE / GRAIN */
+@utility text-luxe {
+  background: linear-gradient(
+    90deg,
+    var(--color-gradient-start),
+    var(--color-gradient-end)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: url("/noise.png");
+  background-size: 320px 320px;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+}
+
+@utility hero-glow {
+  position: relative;
+}
+.hero-glow::before,
+.hero-glow::after {
+  content: "";
+  position: absolute;
+  inset: auto;
+  pointer-events: none;
+  filter: blur(40px);
+}
+.hero-glow::before {
+  width: 65%;
+  height: 65%;
+  right: -10%;
+  top: -10%;
+  background: radial-gradient(
+    closest-side,
+    rgba(59, 130, 246, 0.55),
+    transparent 70%
+  );
+}
+.hero-glow::after {
+  width: 55%;
+  height: 55%;
+  left: -10%;
+  bottom: -10%;
+  background: radial-gradient(
+    closest-side,
+    rgba(96, 165, 250, 0.45),
+    transparent 70%
+  );
+}
+
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(
+    from 220deg,
+    transparent 0 74%,
+    rgba(255, 255, 255, 0.08) 78%,
+    transparent 82% 100%
+  );
+  transform: rotate(0deg) translateZ(0);
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+.card-shine:hover::before {
+  transform: rotate(12deg);
+  opacity: 0.9;
+}
+
+/* flares opcionais */
+.flare {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(28px);
+  opacity: 0.28;
+}
+.flare-1 {
+  width: 180px;
+  height: 180px;
+  left: 10%;
+  bottom: 8%;
+  background: #60a5fa;
+}
+.flare-2 {
+  width: 140px;
+  height: 140px;
+  right: 12%;
+  top: 18%;
+  background: #3b82f6;
+}
+
+/* under-glow line */
+/* ===== Under-glow com laser varrendo (autônomo) ===== */
+.under-glow {
+  position: relative;
+  /* você pode ajustar por elemento via style="--ug-l: ... --ug-beam: ..." */
+  --ug-h: 2px; /* altura da linha */
+  --ug-l: 150px; /* comprimento da linha */
+  --ug-beam: 80px; /* largura do feixe */
+  --ug-base-rgb: 255, 255, 255; /* cor base (dark = branco) */
+  --ug-base-alpha: 0.9; /* opacidade da linha */
+}
+
+/* 1 pseudo só, com 2 camadas de background:
+   - camada 1 = linha base estática
+   - camada 2 = feixe que se move (laser)
+*/
+.under-glow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: var(--ug-l);
+  height: var(--ug-h);
+  border-radius: 2px;
+  pointer-events: none;
+  filter: blur(0.5px);
+
+  /* camadas: [base estática] , [feixe animado] */
+  background: linear-gradient(
+        90deg,
+        rgba(var(--ug-base-rgb), var(--ug-base-alpha)),
+        transparent
+      )
+      left / 100% 100% no-repeat,
+    linear-gradient(
+        90deg,
+        rgba(var(--ug-base-rgb), 0) 0%,
+        rgba(var(--ug-base-rgb), 1) 50%,
+        rgba(var(--ug-base-rgb), 0) 100%
+      )
+      0 / var(--ug-beam) 100% no-repeat;
+
+  /* animação do feixe (2ª camada) */
+  animation: ug-scan 2.2s linear infinite;
+}
+
+/* movimento do feixe da esquerda para a direita */
+@keyframes ug-scan {
+  from {
+    background-position: left, calc(-1 * var(--ug-beam)) 0;
+  }
+  to {
+    background-position: left, calc(100% + var(--ug-beam)) 0;
+  }
+}
+
+/* respeita usuários que pedem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .under-glow::after {
+    animation: none;
+  }
+}
+
+/* --- Tema claro: usa a brand (azul) para o feixe */
+:root[data-theme="light"] .under-glow {
+  --ug-base-rgb: 37, 99, 235; /* #2563eb */
+  --ug-base-alpha: 0.95;
+}

@@ -1,0 +1,25 @@
+@utility input-dark {
+  @apply px-3 py-2 rounded-lg outline-none text-neutral-100 placeholder:text-neutral-400;
+  background-color: rgba(255,255,255,.05);
+  border:1px solid rgb(var(--color-border-soft)/.14);
+}
+/* Campos com rótulo e ajuda */
+.form-field { display:flex; flex-direction:column; gap:.35rem; }
+.form-label { font-size:.875rem; font-weight:600; color: oklch(92% 0 0 / .92); }
+.form-error { font-size:.75rem; color: var(--color-danger); }
+
+/* realce de erro no input existente */
+.input-error { border-color: color-mix(in oklab, var(--color-danger) 70%, transparent); }
+
+/* sucesso/erro reutilizáveis */
+.text-success { color: var(--color-success); }
+.text-danger  { color: var(--color-danger); }
+
+/* botão com spinner */
+.btn-primary.is-loading { pointer-events:none; opacity:.9; display:inline-flex; align-items:center; gap:.5rem; }
+.spinner { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* light: pequenos ajustes de contraste */
+:root[data-theme='light'] .form-label { color:#0b1220; }
+:root[data-theme='light'] .form-error { color: var(--color-danger); }

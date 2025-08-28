@@ -1,0 +1,13 @@
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-semibold transition;
+  background-color: var(--color-brand-primary); color:white; outline:none;
+}
+.btn-primary:hover { filter: brightness(.96); }
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-medium border transition;
+  background-color: rgb(var(--color-brand-card) / .7);
+  border-color: rgb(var(--color-border-soft) / .14);
+  color: var(--color-brand-accent); outline:none;
+}
+.btn-secondary:hover { background-color: rgb(var(--color-brand-card) / .9); }

@@ -1,0 +1,402 @@
+@utility section-head {
+  @apply flex items-end justify-between mb-6;
+}
+@utility section-kicker {
+  @apply text-xs font-medium uppercase text-neutral-500;
+  letter-spacing: 0.18em;
+}
+
+@utility mid-divider {
+  position: relative;
+  isolation: isolate;
+}
+.mid-divider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      1200px 140px at 50% 0%,
+      rgba(96, 165, 250, 0.25),
+      transparent 70%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* seções temáticas */
+@utility section-light {
+  background: radial-gradient(
+      900px 380px at 10% -10%,
+      rgba(96, 165, 250, 0.14),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #0f1722, #0d141e);
+}
+@utility section-dark {
+  background: radial-gradient(
+      900px 380px at 90% -10%,
+      rgba(59, 130, 246, 0.16),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #0d1219, #0b0f15);
+}
+
+@utility edu-effects {
+  @apply relative rounded-2xl p-8 md:p-10 border backdrop-blur overflow-hidden;
+  border-color: rgb(var(--color-border-soft) / 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.65),
+    rgba(17, 24, 39, 0.45)
+  );
+  box-shadow: 0 18px 80px -28px rgba(0, 0, 0, 0.6);
+}
+/*
+
+---------
+
+
+
+*/
+/* ===== Education & Certs ===== */
+@utility edu-card {
+  @apply p-6 md:p-7;
+  @apply relative rounded-2xl p-8 md:p-10 border backdrop-blur overflow-hidden;
+  border-color: rgb(var(--color-border-soft) / 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.65),
+    rgba(17, 24, 39, 0.45)
+  );
+  box-shadow: 0 18px 80px -28px rgba(0, 0, 0, 0.6);
+}
+
+/* Lista de formação: blocos com leve vidro e borda */
+/* education.css */
+.edu-list {
+  display: grid;
+  gap: 0.625rem; /* ~gap-2.5 */
+}
+@media (min-width: 640px) {
+  /* sm */
+  .edu-list {
+    gap: 0.75rem;
+  } /* ~gap-3 */
+}
+
+.edu-item {
+  position: relative;
+  border-radius: 0.9rem;
+  border: 1px solid rgb(var(--color-border-soft) / 0.1);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0)
+  );
+  overflow: hidden; /* evita “vazar” conteúdo */
+}
+
+/* pill do período — micro tag neutra */
+.edu-period {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 26px;
+  padding: 0 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: oklch(92% 0 0 / 0.92);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgb(var(--color-border-soft) / 0.12);
+  backdrop-filter: blur(4px);
+}
+
+/* Certificações: bullets elegantes */
+.cert-list {
+  display: grid;
+  gap: 0.5rem;
+}
+.cert-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  align-items: start;
+  gap: 0.6rem;
+  padding: 0.45rem 0.2rem 0.45rem 0;
+  color: #e5e7eb;
+}
+.cert-item .block {
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  color: #e5e7eb;
+}
+.cert-item .cert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  margin-top: 0.35rem;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18); /* halo */
+  background: var(--color-brand-primary);
+}
+
+/* hover leve no card */
+.group:hover .edu-item {
+}
+
+/* Light overrides específicos (mantém tema clean) */
+
+:root[data-theme="light"] .edu-period {
+  color: #0b1220;
+  background: rgba(15, 23, 42, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+:root[data-theme="light"] .cert-item .block {
+  color: #0f172a;
+}
+:root[data-theme="light"] .cert-item .cert-dot {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+}
+
+/* ===== Ring runner só na borda do card (sem invadir por dentro) ===== */
+
+/* 1) variável animável p/ o ângulo do ring */
+@property --ring-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* 2) base do card */
+.edu-card {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden; /* clipa o halo ao retângulo arredondado */
+  transition: box-shadow 0.25s ease;
+}
+
+/* 3) ring animado – apenas a borda (com máscara), invisível até hover */
+.edu-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* espessura do anel */
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  /* highlight curto que percorre a borda */
+  background: conic-gradient(
+      from var(--ring-angle),
+      /* trecho escuro/transparente */ transparent 0turn 0.86turn,
+      /* “faixa de luz” */
+        color-mix(in oklab, var(--color-brand-primary) 92%, transparent) 0.9turn
+        0.96turn,
+      color-mix(in oklab, var(--color-brand-accent) 80%, transparent) 0.96turn
+        1turn
+    )
+    border-box;
+
+  /* máscara: transforma em ANEL (só a borda) — cross-browser */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  /* leve suavização do brilho */
+  filter: blur(0.4px);
+}
+
+/* 4) animação do ângulo quando hover (parece que a luz contorna) */
+.edu-card:hover::before {
+  opacity: 1;
+  animation: edu-ring-rotate 3.2s linear infinite;
+}
+
+/* 5) “respiração” leve no hover (opcional, pode remover se quiser) */
+.edu-card:hover {
+  box-shadow: 0 0 0 0 rgba(37, 99, 235, 0),
+    0 0 24px -6px rgba(37, 99, 235, 0.45);
+  animation: edu-pulse 3.2s ease-in-out infinite;
+}
+
+/* conteúdo sempre acima do ring */
+.edu-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* === Keyframes === */
+@keyframes edu-ring-rotate {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+@keyframes edu-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0),
+      0 0 18px -8px rgba(37, 99, 235, 0.32);
+  }
+  50% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0),
+      0 0 28px -6px rgba(37, 99, 235, 0.48);
+  }
+}
+
+/* LIGHT: brilho um pouco mais suave para não estourar no fundo claro */
+:root[data-theme="light"] .edu-card:hover {
+  animation: edu-pulse-light 3.2s ease-in-out infinite;
+}
+@keyframes edu-pulse-light {
+  0%,
+  100% {
+    box-shadow: 0 0 18px -10px rgba(37, 99, 235, 0.28);
+  }
+  50% {
+    box-shadow: 0 0 24px -8px rgba(37, 99, 235, 0.4);
+  }
+}
+
+/* === EDU FEATURED LOOK (usa o visual do featured-panel no card) === */
+.edu-featured {
+  position: relative;
+  border-radius: 1rem;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 24, 39, 0.65),
+    rgba(17, 24, 39, 0.45)
+  );
+  border: 1px solid rgb(var(--color-border-soft) / 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 80px -28px rgba(0, 0, 0, 0.6);
+}
+
+/* Light theme override para o featured look */
+
+/* === GLOW externo (usa ::after para não conflitar com o ::before do ring) === */
+.edu-glow {
+  position: relative;
+  overflow: hidden;
+} /* clipa cantos arredondados se precisar */
+.edu-glow::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  border-radius: inherit;
+  z-index: 0; /* atrás do conteúdo e do ring */
+  pointer-events: none;
+  background: radial-gradient(
+      420px 320px at 78% 18%,
+      rgba(59, 130, 246, 0.24),
+      transparent 70%
+    ),
+    radial-gradient(
+      340px 260px at 22% 72%,
+      rgba(96, 165, 250, 0.2),
+      transparent 70%
+    );
+  filter: blur(60px);
+  opacity: 0.9;
+}
+
+/* Garante que o conteúdo fique acima de ::after e do ring */
+.edu-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+/*New Effects Geeen*/
+
+/* Mesmas classes/nomes. Só troquei as cores pra BRANCO. */
+
+@utility new-effects-green {
+  @apply p-6 md:p-7;
+  @apply relative rounded-2xl p-8 md:p-10 border backdrop-blur overflow-hidden;
+ border-color: rgb(var(--color-border-soft)/.12);
+  background: linear-gradient(180deg, rgba(17,24,39,.65), rgba(17,24,39,.45));
+  box-shadow: 0 18px 80px -28px rgba(0,0,0,.6);
+}
+
+.new-effects-green {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden; /* clipa o halo ao retângulo arredondado */
+  transition: box-shadow 0.25s ease;
+}
+
+.new-effects-green::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px; /* espessura do anel */
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  /* highlight curto que percorre a borda */
+  background: conic-gradient(
+      from var(--ring-angle),
+      /* trecho escuro/transparente */ transparent 0turn 0.86turn,
+      /* “faixa de luz” agora BRANCA */
+        color-mix(in oklab, white 92%, transparent) 0.9turn 0.96turn,
+      color-mix(in oklab, white 80%, transparent) 0.96turn 1turn
+    )
+    border-box;
+
+  /* máscara: transforma em ANEL (só a borda) — cross-browser */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  /* leve suavização do brilho */
+  filter: blur(0.4px);
+}
+
+.new-effects-green:hover::before {
+  opacity: 1;
+  animation: edu-ring-rotate 3.2s linear infinite;
+}
+
+.new-effects-green:hover {
+  /* sombras agora BRANCAS */
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0),
+    0 0 24px -6px rgba(255, 255, 255, 0.45);
+  animation: edu-pulse 3.2s ease-in-out infinite;
+}
+
+.new-effects-green > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+/* Glow de fundo que não conflita com o ring (usa ::after) */
+.fxg-bg-glow { position: relative; overflow: hidden; } /* garante clipping */
+.fxg-bg-glow::after{
+  content: "";
+  position: absolute;
+  inset: -40px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0; /* atrás do ring (::before) e do conteúdo */
+  background:
+    /* mesmo “charme” do featured-panel-glow no DARK (azulado) */
+    radial-gradient(800px 520px at 85% -10%, rgba(59,130,246,.18), transparent 70%),
+    radial-gradient(700px 420px at 12% 80%, rgba(37,99,235,.12), transparent 70%);
+  filter: blur(52px);
+  opacity: .95;
+}
+
+/* Tema CLARO: o glow vira VERDE (pedido anterior) */

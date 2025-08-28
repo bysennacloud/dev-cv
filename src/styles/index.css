@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* 1) Tokens */
+@import "./tokens.css";
+
+/* 2) Base e A11y */
+@import "./base.css";
+@import "./a11y.css";
+
+/* 3) Animações e Efeitos */
+@import "./animations.css";
+@import "./effects.css";
+
+/* 4) Componentes */
+@import "./components/navbar.css";
+@import "./components/hero.css";
+@import "./components/panels.css";
+@import "./components/cards.css";
+@import "./components/projects.css";
+@import "./components/tags-chips.css";
+@import "./components/buttons.css";
+@import "./components/forms.css";
+@import "./components/sections.css";
+
+/* 5) Tema Light (overrides por último) */
+@import "./themes/light.css";
+
+
