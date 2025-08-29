@@ -35,7 +35,6 @@ export default function Experience() {
       <div className="container">
         <div className="featured-panel featured-panel-glow">
           <h2 className="heading-2 mb-6 under-glow">Experiência</h2>
-          
 
           <div className="grid gap-5">
             {jobs.map((j) => (

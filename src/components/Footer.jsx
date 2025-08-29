@@ -23,7 +23,6 @@ export default function Footer() {
           <a className="tag" href="mailto:seuemail@exemplo.com">
             E-mail
           </a>
-          
         </div>
       </div>
     </footer>

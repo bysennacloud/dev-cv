@@ -15,12 +15,39 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
 
     <!-- Fonte opcional (Google Fonts, ex.: Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
-    >
+    />
+
+    <!-- Tema + Performance-lite: aplicado cedo para evitar flash e travadinhas -->
+   <script>
+(function () {
+  var doc = document.documentElement;
+
+  // Tema: default = DARK
+  try {
+    var saved = localStorage.getItem("theme") || "dark";
+    doc.setAttribute("data-theme", saved); // <-- ESSA LINHA!
+  } catch (e) {}
+
+  // Performance-lite
+  try {
+    var dm = navigator.deviceMemory || 0;
+    var cores = navigator.hardwareConcurrency || 0;
+    var isLow = (dm && dm <= 3) || (cores && cores <= 4);
+
+    var q = new URLSearchParams(location.search).get("perf");
+    if (q === "lite") isLow = true;
+    if (q === "off")  isLow = false;
+
+    if (isLow) doc.setAttribute("data-perf", "lite");
+  } catch (e) {}
+})();
+</script>
+
   </head>
   <body class="page">
     <div id="root"></div>

@@ -1,0 +1,60 @@
+@import "./effects.css";
+@import "./components/sections.css";
+
+
+/* 1) Quem pede menos movimento: tira animações */
+@media (prefers-reduced-motion: reduce) {
+  .edu-card:hover { animation: none !important; }
+  .edu-card::before { animation: none !important; }
+}
+
+/* 2) Em telas touch (geralmente celular): corta filtros pesados */
+@media (pointer: coarse) {
+  .edu-featured {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .edu-glow::after {
+    filter: none !important;
+    opacity: .55;
+    /* degrade leve sem blur pesado */
+    background:
+      radial-gradient(600px 420px at 80% 0%, rgba(59,130,246,.10), transparent 70%),
+      radial-gradient(520px 360px at 10% 85%, rgba(37,99,235,.08), transparent 70%);
+  }
+  .edu-card:hover {
+    animation: none !important;
+    box-shadow: 0 10px 32px -20px rgba(0,0,0,.35);
+  }
+  /* ring some: desliga o anel no mobile */
+  .edu-card::before { content: none !important; }
+}
+
+/* 3) Hard kill para devices fracos: <html data-perf="lite"> ... */
+:root[data-perf="lite"] .edu-featured {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: linear-gradient(180deg, rgba(17,24,39,.70), rgba(17,24,39,.55));
+  border-color: rgba(255,255,255,.06);
+  box-shadow: 0 12px 34px -18px rgba(0,0,0,.40);
+}
+:root[data-perf="lite"][data-theme="light"] .edu-featured {
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.86));
+  border-color: rgba(0,0,0,.08);
+  box-shadow: 0 12px 34px -18px rgba(0,0,0,.18);
+}
+:root[data-perf="lite"] .edu-glow::after { content: none !important; }
+:root[data-perf="lite"] .edu-card::before { content: none !important; }
+:root[data-perf="lite"] .edu-card:hover { animation: none !important; }
+
+/* 4) Fallback se o browser nem suporta backdrop-filter (muitos Androids) */
+@supports not ((-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px))) {
+  .edu-featured {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(180deg, rgba(17,24,39,.72), rgba(17,24,39,.58));
+  }
+  :root[data-theme="light"] .edu-featured {
+    background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.86));
+  }
+}
