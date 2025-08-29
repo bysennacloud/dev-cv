@@ -11,7 +11,7 @@ export default function App() {
   return (
     <div className="bg-brand-bg text-white">
       <Nav />
-      <main className="container mx-auto px-6">
+      <main className="container mx-w-7x1 mx-auto px-2 pt-3 sm:px-3">
         <Hero />
        
 

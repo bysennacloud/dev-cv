@@ -62,7 +62,7 @@
 */
 /* ===== Education & Certs ===== */
 @utility edu-card {
-  @apply p-6 md:p-7;
+  @apply p-3 md:p-7;
   @apply relative rounded-2xl p-8 md:p-10 border backdrop-blur overflow-hidden;
   border-color: rgb(var(--color-border-soft) / 0.12);
   background: linear-gradient(

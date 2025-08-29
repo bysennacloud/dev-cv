@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <section id="home" className="">
-      <div className="container">
+      <div className="container pb-2">
         <div className="new-effects-green fxg-bg-glow group grid md:grid-cols-2 py-6 gap-10 items-center">
           {/* Coluna esquerda */}
           <div>
@@ -58,7 +58,7 @@ export default function Hero() {
 
           <div className="hero-plate relative p-6 sm:p-8 min-h-[500px]">
             <img
-              src="./src/assets/andersonsena.jpg"
+              src="./andersonsena.jpg"
               alt="Anderson Sena"
               className="hero-media" 
             />

@@ -2,6 +2,7 @@
   @apply sticky top-0 z-50 backdrop-blur border-b;
   background: rgba(10,11,13,.75);
   border-color: rgb(var(--color-border-soft) / .08);
+  padding-inline: 1rem;
 }
 
 /* link da brand */
