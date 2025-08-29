@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -23,31 +23,33 @@
     />
 
     <!-- Tema + Performance-lite: aplicado cedo para evitar flash e travadinhas -->
-   <script>
-(function () {
-  var doc = document.documentElement;
+    <script>
+      (function () {
+        var doc = document.documentElement;
 
-  // Tema: default = DARK
-  try {
-    var saved = localStorage.getItem("theme") || "dark";
-    doc.setAttribute("data-theme", saved); // <-- ESSA LINHA!
-  } catch (e) {}
+        // Tema: default = DARK
+        try {
+          var saved = localStorage.getItem("theme") || "dark";
+          doc.setAttribute("data-theme", saved);
+        } catch (e) {}
 
-  // Performance-lite
-  try {
-    var dm = navigator.deviceMemory || 0;
-    var cores = navigator.hardwareConcurrency || 0;
-    var isLow = (dm && dm <= 3) || (cores && cores <= 4);
+        // Performance-lite (AQUI entra o isLow)
+        try {
+          var isLow =
+            (navigator.deviceMemory && navigator.deviceMemory <= 3) ||
+            (navigator.hardwareConcurrency &&
+              navigator.hardwareConcurrency <= 4) ||
+            (window.matchMedia && matchMedia("(pointer: coarse)").matches); // celular = lite
 
-    var q = new URLSearchParams(location.search).get("perf");
-    if (q === "lite") isLow = true;
-    if (q === "off")  isLow = false;
+          // Overrides por URL: ?perf=lite / ?perf=off
+          var q = new URLSearchParams(location.search).get("perf");
+          if (q === "lite") isLow = true;
+          if (q === "off") isLow = false;
 
-    if (isLow) doc.setAttribute("data-perf", "lite");
-  } catch (e) {}
-})();
-</script>
-
+          if (isLow) doc.setAttribute("data-perf", "lite");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="page">
     <div id="root"></div>

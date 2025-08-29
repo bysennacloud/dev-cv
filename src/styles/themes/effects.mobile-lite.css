@@ -1,0 +1,56 @@
+/* Kill switch para celulares modestos
+   - Desliga ring (conic + mask), blur e animações pesadas
+   - Mantém um degrade leve como fallback
+   - Funciona por atributo data-perf="lite" OU por @media (pointer:coarse)
+*/
+
+/* 0) Fallback: degrade leve para os cards quando efeitos desligados */
+:root[data-theme="dark"] .fx-lite-surface {
+  background: linear-gradient(180deg, rgba(17,24,39,.78), rgba(17,24,39,.62)) !important;
+  border-color: rgba(255,255,255,.06) !important;
+  box-shadow: 0 12px 34px -18px rgba(0,0,0,.40) !important;
+}
+:root[data-theme="light"] .fx-lite-surface {
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.86)) !important;
+  border-color: rgba(0,0,0,.08) !important;
+  box-shadow: 0 12px 34px -18px rgba(0,0,0,.18) !important;
+}
+
+/* 1) Gatilho global via atributo */
+:root[data-perf="lite"] .new-effects-green::before { content: none !important; }
+:root[data-perf="lite"] .new-effects-green { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+:root[data-perf="lite"] .new-effects-green:hover { animation: none !important; box-shadow: 0 10px 32px -20px rgba(0,0,0,.35) !important; }
+:root[data-perf="lite"] .fxg-bg-glow::after { content: none !important; }
+
+/* Se ainda existir páginas com as classes antigas, cobre também */
+:root[data-perf="lite"] .edu-card::before { content: none !important; }
+:root[data-perf="lite"] .edu-card:hover { animation: none !important; box-shadow: 0 10px 32px -20px rgba(0,0,0,.35) !important; }
+:root[data-perf="lite"] .edu-featured { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+:root[data-perf="lite"] .edu-glow::after { content: none !important; }
+
+/* 2) Heurística automática por touch device (sem depender do atributo) */
+@media (pointer: coarse) {
+  .new-effects-green::before { content: none !important; }
+  .new-effects-green { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .new-effects-green:hover { animation: none !important; box-shadow: 0 10px 32px -20px rgba(0,0,0,.35) !important; }
+  .fxg-bg-glow::after { content: none !important; }
+
+  /* Antigas */
+  .edu-card::before { content: none !important; }
+  .edu-card:hover { animation: none !important; box-shadow: 0 10px 32px -20px rgba(0,0,0,.35) !important; }
+  .edu-featured { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .edu-glow::after { content: none !important; }
+}
+
+/* 3) Sem suporte a backdrop-filter → degrade simples */
+@supports not ((-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px))) {
+  .new-effects-green,
+  .edu-featured { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  :root[data-theme="dark"] .new-effects-green,
+  :root[data-theme="dark"] .edu-featured { background: linear-gradient(180deg, rgba(17,24,39,.78), rgba(17,24,39,.62)) !important; }
+  :root[data-theme="light"] .new-effects-green,
+  :root[data-theme="light"] .edu-featured { background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.86)) !important; }
+}
+
+/* 4) Helper: aplique .fx-lite-surface no container para forçar o degrade leve */
+/* <div class="new-effects-green fx-lite-surface"> ... */

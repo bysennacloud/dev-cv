@@ -1,5 +1,6 @@
 @import "./effects.css";
 @import "./components/sections.css";
+@import "./effects.mobile-lite.css";
 
 
 /* 1) Quem pede menos movimento: tira animações */
